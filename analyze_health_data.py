@@ -42,7 +42,13 @@ def calculate_statistics(data):
     # TODO: Calculate average systolic BP using data['blood_pressure_systolic'].mean()
     # TODO: Calculate average glucose level using data['glucose_level'].mean()
     # TODO: Return as dictionary with keys: 'avg_heart_rate', 'avg_systolic_bp', 'avg_glucose'
-    pass
+    
+    avg_heart_rate = data["heart_rate"].mean()
+    avg_systolic_bp = data["blood_pressure_systolic"].mean()
+    avg_glucose = data["glucose_level"].mean()
+    return {"avg_heart_rate": f"{avg_heart_rate:.1f}",
+        "avg_systolic_bp": f"{avg_systolic_bp:.1f}",
+        "avg_glucose": f"{avg_glucose:.1f}"}
 
 
 def find_abnormal_readings(data):
@@ -65,8 +71,10 @@ def find_abnormal_readings(data):
     # Example: high_glucose_count = len(data[data['glucose_level'] > 110])
     
     # TODO: Return dictionary with keys: 'high_heart_rate', 'high_blood_pressure', 'high_glucose'
-    pass
-
+    high_heart_rate = len(data["heart_rate"] > 90)
+    high_bp_count = len(data["blood_pressure_systolic"] > 130)
+    high_glucose_count = len(data["glucose_level"] > 110)
+    return {"high_heart_rate": high_heart_rate, "high_blood_pressure": high_bp_count, "high_glucose": high_glucose_count}
 
 def generate_report(stats, abnormal, total_readings):
     """Generate formatted analysis report.
@@ -84,7 +92,21 @@ def generate_report(stats, abnormal, total_readings):
     # Example: f"Heart Rate: {stats['avg_heart_rate']:.1f} bpm"
     # TODO: Include section headers and labels for readability
     # TODO: Include total_readings, all averages, and all abnormal counts
-    pass
+    report = (
+        "Health Sensor Data Analysis Report\n"
+        "==================================\n\n"
+        f"Total Readings Analyzed: {total_readings}\n\n"
+        f"Average Values:\n"
+        f"- Heart Rate:" f" {stats['avg_heart_rate']} bpm\n"
+        f"- Systolic Blood Pressure: {stats['avg_systolic_bp']} mmHg\n"
+        f"- Glucose Level: {stats['avg_glucose']} mg/dL\n\n"
+        f"Abnormal Readings:\n"
+        f"- High Heart Rate (>90bpm): {abnormal["high_heart_rate"]}\n"
+        f"- High Systolic Blood Pressure (>130mmHg): {abnormal["high_blood_pressure"]}\n"
+        f"- High Glucose Level (>110mg/dL): {abnormal["high_glucose"]}\n"
+
+    )
+    return report
 
 
 def save_report(report, filename):
@@ -97,7 +119,8 @@ def save_report(report, filename):
     # TODO: Write the report to a file using open() with 'w' mode
     # Example: with open(filename, 'w') as f:
     #              f.write(report)
-    pass
+    with open(filename, "w") as f:
+        f.write(report)
 
 
 def main():
