@@ -1,0 +1,14 @@
+Health Sensor Data Analysis Report
+==================================
+
+Total Readings Analyzed: 50000
+
+Average Values:
+- Heart Rate: 80.1 bpm
+- Systolic Blood Pressure: 125.0 mmHg
+- Glucose Level: 99.9 mg/dL
+
+Abnormal Readings:
+- High Heart Rate (>90bpm): 12386
+- High Systolic Blood Pressure (>130mmHg): 16180
+- High Glucose Level (>110mg/dL): 16258

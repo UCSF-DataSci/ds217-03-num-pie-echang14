@@ -71,10 +71,10 @@ def find_abnormal_readings(data):
     # Example: high_glucose_count = len(data[data['glucose_level'] > 110])
     
     # TODO: Return dictionary with keys: 'high_heart_rate', 'high_blood_pressure', 'high_glucose'
-    high_heart_rate = len(data["heart_rate"] > 90)
-    high_bp_count = len(data["blood_pressure_systolic"] > 130)
-    high_glucose_count = len(data["glucose_level"] > 110)
-    return {"high_heart_rate": high_heart_rate, "high_blood_pressure": high_bp_count, "high_glucose": high_glucose_count}
+    high_hr_count = (data["heart_rate"] > 90).sum()
+    high_bp_count = (data["blood_pressure_systolic"] > 130).sum()
+    high_glucose_count = (data["glucose_level"] > 110).sum()
+    return {"high_heart_rate": high_hr_count, "high_blood_pressure": high_bp_count, "high_glucose": high_glucose_count}
 
 def generate_report(stats, abnormal, total_readings):
     """Generate formatted analysis report.
@@ -132,8 +132,14 @@ def main():
     # TODO: Generate report using generate_report()
     # TODO: Save to 'output/analysis_report.txt' using save_report()
     # TODO: Print success message
-    pass
-
+    
+    data = load_data("health_data.csv")
+    statistics = caluculate_statistics = calculate_statistics(data)
+    abnormals = find_abnormal_readings(data)
+    total_readings = len(data)
+    generated_report = generate_report(statistics, abnormals, total_readings)
+    save_report(generated_report, "output/analysis_report.txt")
+    print("Analysis report saved to output/analysis_report.txt")    
 
 if __name__ == "__main__":
     main()
